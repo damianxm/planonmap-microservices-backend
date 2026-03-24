@@ -6,6 +6,7 @@ RUN dotnet publish src/Services/MapItems/src/MapItems.csproj \
 
 FROM mcr.microsoft.com/dotnet/aspnet:10.0
 WORKDIR /app
-COPY --from=build /app/publish .
+COPY --from=build --chown=app:app /app/publish .
+USER app
 EXPOSE 8080
 ENTRYPOINT ["dotnet", "MapItems.dll"]
