@@ -1,0 +1,112 @@
+services:
+
+  postgres:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: infomap
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U infomap"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    volumes:
+      - redis_data:/data
+
+  rabbitmq:
+    image: rabbitmq:4-alpine
+    restart: unless-stopped
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "ping"]
+      interval: 10s
+      timeout: 10s
+      retries: 10
+
+  mapitems:
+    build:
+      context: .
+      dockerfile: Dockerfile.mapitems
+    restart: unless-stopped
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ConnectionStrings__mapitemsDb: "Host=postgres;Database=mapitemsDb;Username=infomap;Password=${POSTGRES_PASSWORD}"
+      ConnectionStrings__rabbitmq: "amqp://${RABBITMQ_USER}:${RABBITMQ_PASSWORD}@rabbitmq"
+      ConnectionStrings__redis: "redis:6379"
+    depends_on:
+      postgres: { condition: service_healthy }
+      rabbitmq: { condition: service_healthy }
+      redis: { condition: service_started }
+
+  chat:
+    build:
+      context: .
+      dockerfile: Dockerfile.chat
+    restart: unless-stopped
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ConnectionStrings__chatDb: "Host=postgres;Database=chatDb;Username=infomap;Password=${POSTGRES_PASSWORD}"
+      ConnectionStrings__rabbitmq: "amqp://${RABBITMQ_USER}:${RABBITMQ_PASSWORD}@rabbitmq"
+      ConnectionStrings__redis: "redis:6379"
+    depends_on:
+      postgres: { condition: service_healthy }
+      rabbitmq: { condition: service_healthy }
+      redis: { condition: service_started }
+
+  session:
+    build:
+      context: .
+      dockerfile: Dockerfile.session
+    restart: unless-stopped
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ConnectionStrings__sessionDb: "Host=postgres;Database=sessionDb;Username=infomap;Password=${POSTGRES_PASSWORD}"
+      ConnectionStrings__rabbitmq: "amqp://${RABBITMQ_USER}:${RABBITMQ_PASSWORD}@rabbitmq"
+      ConnectionStrings__redis: "redis:6379"
+    depends_on:
+      postgres: { condition: service_healthy }
+      rabbitmq: { condition: service_healthy }
+      redis: { condition: service_started }
+
+  apigateway:
+    build:
+      context: .
+      dockerfile: Dockerfile.apigateway
+    restart: unless-stopped
+    networks:
+      - default
+      - dokploy-network
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.infomap-api.rule=Host(`${DOMAIN}`)
+      - traefik.http.routers.infomap-api.entrypoints=websecure
+      - traefik.http.routers.infomap-api.tls.certResolver=letsencrypt
+      - traefik.http.services.infomap-api.loadbalancer.server.port=8080
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      CorsOrigins__0: ${CORS_ORIGIN}
+    depends_on:
+      - mapitems
+      - chat
+      - session
+
+volumes:
+  postgres_data:
+  redis_data:
+  rabbitmq_data:
+
+networks:
+  dokploy-network:
+    external: true

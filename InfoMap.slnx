@@ -1,0 +1,53 @@
+<Solution>
+  <Folder Name="/src/" />
+  <Folder Name="/src/ApiGateway/" />
+  <Folder Name="/src/ApiGateway/src/">
+    <Project Path="src/ApiGateway/src/ApiGateway.csproj" />
+  </Folder>
+  <Folder Name="/src/ApiGateway/tests/" />
+  <Folder Name="/src/ApiGateway/tests/Integration/">
+    <Project Path="src/ApiGateway/tests/IntegrationTests/IntegrationTests.csproj" />
+  </Folder>
+  <Folder Name="/src/Aspire/">
+    <Project Path="src/Aspire/InfoMap.AppHost/InfoMap.AppHost.csproj" />
+    <Project Path="src/Aspire/InfoMap.ServiceDefaults/InfoMap.ServiceDefaults.csproj" />
+  </Folder>
+  <Folder Name="/src/Services/" />
+  <Folder Name="/src/Services/Chat/" />
+  <Folder Name="/src/Services/Chat/src/">
+    <Project Path="src/Services/Chat/src/Chat.csproj" />
+  </Folder>
+  <Folder Name="/src/Services/Chat/tests/" />
+  <Folder Name="/src/Services/Chat/tests/IntegrationTests/">
+    <Project Path="src/Services/Chat/tests/IntegrationTests/Chat.IntegrationTests.csproj" />
+  </Folder>
+  <Folder Name="/src/Services/Chat/tests/UnitTests/">
+    <Project Path="src/Services/Chat/tests/UnitTests/Chat.UnitTests.csproj" />
+  </Folder>
+  <Folder Name="/src/Services/MapItems/" />
+  <Folder Name="/src/Services/MapItems/src/">
+    <Project Path="src/Services/MapItems/src/MapItems.csproj" />
+  </Folder>
+  <Folder Name="/src/Services/MapItems/tests/" />
+  <Folder Name="/src/Services/MapItems/tests/IntegrationTests/">
+    <Project Path="src/Services/MapItems/tests/IntegrationTests/MapItems.IntegrationTests.csproj" />
+  </Folder>
+  <Folder Name="/src/Services/MapItems/tests/UnitTests/">
+    <Project Path="src/Services/MapItems/tests/UnitTests/MapItems.UnitTests.csproj" />
+  </Folder>
+  <Folder Name="/src/Services/Session/" />
+  <Folder Name="/src/Services/Session/src/">
+    <Project Path="src/Services/Session/src/Session.csproj" />
+  </Folder>
+  <Folder Name="/src/Services/Session/tests/" />
+  <Folder Name="/src/Services/Session/tests/IntegrationTests/">
+    <Project Path="src/Services/Session/tests/IntegrationTests/Session.IntegrationTests.csproj" />
+  </Folder>
+  <Folder Name="/src/Services/Session/tests/UnitTests/">
+    <Project Path="src/Services/Session/tests/UnitTests/Session.UnitTests.csproj" />
+  </Folder>
+  <Folder Name="/src/Shared/">
+    <Project Path="src/Shared/InfoMap.Shared.Tests/InfoMap.Shared.Tests.csproj" />
+    <Project Path="src/Shared/InfoMap.Shared/InfoMap.Shared.csproj" Id="0659ba10-5049-40e9-9137-d69b168f7039" />
+  </Folder>
+</Solution>

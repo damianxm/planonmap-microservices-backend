@@ -1,0 +1,93 @@
+@apigateway = https://localhost:5001
+
+### ═══════════════════════════════════════════════
+###  AUTH
+### ═══════════════════════════════════════════════
+
+### Get current user (me)
+GET {{apigateway}}/api/v1/auth/user
+
+### Update display name
+PUT {{apigateway}}/api/v1/auth/user
+Content-Type: application/json
+
+{
+  "displayName": "John Smith"
+}
+
+### ═══════════════════════════════════════════════
+###  SESSIONS
+### ═══════════════════════════════════════════════
+
+### Get all sessions
+GET {{apigateway}}/api/v1/sessions
+
+### Get session by ID
+GET {{apigateway}}/api/v1/sessions/00000000-0000-0000-0000-000000000000
+
+### Get session by code
+GET {{apigateway}}/api/v1/sessions/by-code/AB12
+
+### Create session
+POST {{apigateway}}/api/v1/sessions
+Content-Type: application/json
+
+{
+  "name": "Mountain Trip",
+  "displayName": "John"
+}
+
+### ═══════════════════════════════════════════════
+###  PARTICIPANTS
+### ═══════════════════════════════════════════════
+
+### Get participants
+GET {{apigateway}}/api/v1/sessions/00000000-0000-0000-0000-000000000000/participants
+
+### Join session
+POST {{apigateway}}/api/v1/sessions/00000000-0000-0000-0000-000000000000/participants
+Content-Type: application/json
+
+{
+  "displayName": "John"
+}
+
+### Leave session
+DELETE {{apigateway}}/api/v1/sessions/00000000-0000-0000-0000-000000000000/participants
+
+### ═══════════════════════════════════════════════
+###  CHAT
+### ═══════════════════════════════════════════════
+
+### Get messages (last 50)
+GET {{apigateway}}/api/v1/chat/00000000-0000-0000-0000-000000000000/messages
+
+### Get messages (with pagination)
+GET {{apigateway}}/api/v1/chat/00000000-0000-0000-0000-000000000000/messages?count=20&before=2025-01-01T00:00:00Z
+
+### Send message
+POST {{apigateway}}/api/v1/chat/00000000-0000-0000-0000-000000000000/messages
+Content-Type: application/json
+
+{
+  "content": "Hey, where are you?"
+}
+
+### ═══════════════════════════════════════════════
+###  MARKERS
+### ═══════════════════════════════════════════════
+
+### Get markers for session
+GET {{apigateway}}/api/v1/markers/00000000-0000-0000-0000-000000000000
+
+### Create marker
+POST {{apigateway}}/api/v1/markers
+Content-Type: application/json
+
+{
+  "sessionId": "00000000-0000-0000-0000-000000000000",
+  "name": "Meeting point",
+  "description": "At the forest entrance",
+  "latitude": 49.2731,
+  "longitude": 19.9806
+}
