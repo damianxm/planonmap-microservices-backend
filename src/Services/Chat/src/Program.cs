@@ -1,6 +1,6 @@
 using Chat.Shared.Infrastructure;
 using Chat.Shared.Infrastructure.Extensions;
-using Chat.Features.Sessions;
+using Chat.Features.Consumers;
 using InfoMap.Shared.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);

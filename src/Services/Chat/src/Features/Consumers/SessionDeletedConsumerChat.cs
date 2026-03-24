@@ -3,10 +3,9 @@ using InfoMap.Shared.API.Contracts.Events.Session;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
 
-namespace Chat.Features.Sessions;
+namespace Chat.Features.Consumers;
 
-public sealed class SessionDeletedConsumerChat(ChatDbContext db, ILogger<SessionDeletedConsumerChat> logger)
-    : IConsumer<SessionDeletedEvent>
+public sealed class SessionDeletedConsumerChat(ChatDbContext db, ILogger<SessionDeletedConsumerChat> logger) : IConsumer<SessionDeletedEvent>
 {
     public async Task Consume(ConsumeContext<SessionDeletedEvent> context)
     {
