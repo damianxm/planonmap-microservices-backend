@@ -10,6 +10,7 @@ https://planonmap.damian-m.com/
 # Tech Stack
 
 # Frontend
+https://github.com/damianxm/planonmap-frontend
 
 | Angular 21
 | TypeScript 5.9
@@ -18,6 +19,7 @@ https://planonmap.damian-m.com/
 | SCSS 
 
 # Backend
+https://github.com/damianxm/planonmap-microservices-backend
 
 | ASP.NET Core 10
 | .NET Aspire
