@@ -30,4 +30,8 @@ https://github.com/damianxm/planonmap-microservices-backend
 | MassTransit
 | Redis
 | YARP
+| Docker compose
+| xUnit
+| NSubstitute
+
 
