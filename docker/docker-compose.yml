@@ -37,8 +37,8 @@ services:
 
   mapitems:
     build:
-      context: .
-      dockerfile: Dockerfile.mapitems
+      context: ..
+      dockerfile: docker/Dockerfile.mapitems
     restart: unless-stopped
     environment:
       ASPNETCORE_ENVIRONMENT: Production
@@ -52,8 +52,8 @@ services:
 
   chat:
     build:
-      context: .
-      dockerfile: Dockerfile.chat
+      context: ..
+      dockerfile: docker/Dockerfile.chat
     restart: unless-stopped
     environment:
       ASPNETCORE_ENVIRONMENT: Production
@@ -67,8 +67,8 @@ services:
 
   session:
     build:
-      context: .
-      dockerfile: Dockerfile.session
+      context: ..
+      dockerfile: docker/Dockerfile.session
     restart: unless-stopped
     environment:
       ASPNETCORE_ENVIRONMENT: Production
@@ -82,8 +82,8 @@ services:
 
   apigateway:
     build:
-      context: .
-      dockerfile: Dockerfile.apigateway
+      context: ..
+      dockerfile: docker/Dockerfile.apigateway
     restart: unless-stopped
     networks:
       - default
