@@ -1,0 +1,40 @@
+name: main
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    name: Build & Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore
+        run: dotnet restore InfoMap.slnx
+
+      - name: Build
+        run: dotnet build InfoMap.slnx --no-restore -c Release
+
+      - name: Unit tests
+        run: >
+          dotnet test InfoMap.slnx
+          --no-build -c Release
+          --filter "FullyQualifiedName~UnitTests"
+          --verbosity normal
+
+      - name: Integration tests
+        run: >
+          dotnet test InfoMap.slnx
+          --no-build -c Release
+          --filter "FullyQualifiedName~IntegrationTests"
+          --verbosity normal
+
